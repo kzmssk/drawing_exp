@@ -1,0 +1,24 @@
+[project]
+name = "drawing-exp"
+version = "0.1.0"
+description = "描画運動獲得・シンボル自己組織化 実験基盤 (backend)"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "fastapi>=0.141.1",
+    "imageio>=2.37.4",
+    "imageio-ffmpeg>=0.6.0",
+    "mujoco>=3.12.0",
+    "numpy>=2.5.2",
+    "pillow>=12.3.0",
+    "pydantic>=2",
+    "torch>=2.13.0",
+    "uvicorn[standard]>=0.52.4",
+]
+
+[build-system]
+requires = ["uv_build>=0.9.18,<0.10.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "drawing_exp"
