@@ -24,6 +24,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from config import BabblingConfig  # noqa: E402
 
 from drawing_exp.env import DrawingEnv  # noqa: E402
+from drawing_exp.experiment import METRICS_FILENAME, RunMetrics  # noqa: E402
 from drawing_exp.render import SceneRenderer, VideoWriter, save_png  # noqa: E402
 
 RUNS_DIR = Path(__file__).resolve().parent / "runs"
@@ -67,6 +68,14 @@ def run(cfg: BabblingConfig) -> Path:
     (out_dir / "config.json").write_text(cfg.model_dump_json(indent=2))
 
     stable = bool(np.all(np.isfinite(obs.qpos)) and np.all(np.isfinite(obs.qvel)))
+    metrics = RunMetrics(
+        n_steps=cfg.sim.n_steps,
+        duration_s=cfg.sim.duration_s,
+        coverage=env.canvas.coverage(),
+        pen_path_len_m=path_len,
+        stable=stable,
+    )
+    (out_dir / METRICS_FILENAME).write_text(metrics.model_dump_json(indent=2))
     print(f"出力先: {out_dir}")
     print(f"  drawing.png         (128x128)  被覆率 {env.canvas.coverage():.3f}")
     print(f"  drawing_topdown.mp4 ({cfg.video_res}x{cfg.video_res}, {topdown.frame_count}フレーム)")
