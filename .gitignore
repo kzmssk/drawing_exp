@@ -1,0 +1,18 @@
+# Python / uv
+.venv/
+__pycache__/
+*.pyc
+.uv/
+
+# Node / frontend
+node_modules/
+dist/
+
+# 実験成果物
+experiments/runs/
+
+# 作業用スクラッチ
+tmp/
+
+# OS / editor
+.DS_Store
